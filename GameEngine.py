@@ -4,11 +4,14 @@ from Drawer import Drawer
 from Player import Player
 from Ball import Ball
 import math
+from Board import Board
 
 drawer = Drawer()
-left = Player("LEFT", drawer, .51)
-right = Player("RIGHT", drawer, .51)
-ball = Ball(drawer)
+left = Player("LEFT", drawer, .51, 15,60)
+right = Player("RIGHT", drawer, .51,15,60)
+ball = Ball(drawer, .2)
+board = Board(right, left, ball)
+
 game_running = True
 print(drawer.screen_width)
 while game_running:
@@ -19,16 +22,17 @@ while game_running:
     # Handle input
     keys = pygame.key.get_pressed()
     if keys[pygame.K_UP]:
-        right.move(math.pi/2)
+        board.playerRight.move(math.pi/2)
     elif keys[pygame.K_DOWN]:
-        right.move(3/2*math.pi)
+        board.playerRight.move(3/2*math.pi)
     if keys[pygame.K_w]:
-        left.move(math.pi/2)
+        board.playerLeft.move(math.pi/2)
     elif keys[pygame.K_s]:
-        left.move(math.pi/2*3)
-    ball.move()
-    left.draw()
-    right.draw()
+        board.playerLeft.move(math.pi/2*3)
+    ball.move(0)
+
+    board.updateItems()
+
     pygame.display.flip()
         
     drawer.screen.fill((0,0,0))

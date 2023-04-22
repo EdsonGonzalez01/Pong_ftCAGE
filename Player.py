@@ -2,14 +2,14 @@ from GameItem import GameItem
 from Drawer import Drawer
 import pygame
 class Player(GameItem):
-    def __init__(self, type, drawer: Drawer, speed) -> None:
+    def __init__(self, type, drawer: Drawer, speed, width, height) -> None:
         super().__init__(speed)
         self.points = 0
         self.name = ""
-        self.width = 15
-        self.height = 60
         self.type = type # POSSIBLE VALUES: LEFT | RIGHT |  None 
         self.drawer: Drawer = drawer
+        self.width = width
+        self.height = height
         pygame.init()
         if self.type == "LEFT":
             self.posX = 25
@@ -19,6 +19,11 @@ class Player(GameItem):
             self.posY = (self.drawer.screen_height / 2) - (self.height / 2)            
 
     #def move(self):
+        #pass
+        #pass
+        #pass
+        #pass
+        
         
     
     def draw(self):
