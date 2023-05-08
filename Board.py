@@ -13,6 +13,15 @@ class Board:
         self.ball:Ball = ball
         self.items = [playerLeft, playerRight, ball]
         self.drawer = Drawer()
+
+
+    def checkforWinner(self):
+        '''Metodo que se encarga de determinar si un jugador gano'''
+        if self.playerLeft.points == 5:
+            return "Player Left won"
+        elif self.playerRight.points == 5:
+            return "Player Left won"
+        return "None"
     
     def checkForGoals(self):
         '''Metodo que se encarga de determinar si un gol fue anotado'''
@@ -37,10 +46,12 @@ class Board:
         self.ball.posY = self.drawer.screen_height/2
         
     def getRandomValueBetween0PIAnd2PI(self):
+        '''Metodo que se encarga de generar un numero aleatorio entre 0 y 2pi'''
         rnd_num = rnd.random() + rnd.random() * math.pi
         return rnd_num
 
     def checkCollisionRightPlayerRandom(self): #if -1, then no collision
+        '''Metodo que se encarga de determinar si hubo colision entre la pelota y el jugador derecho'''
         #caso donde pega en el coco de arriba
         #caso donde pega en la parte de enfrente
         if int(self.ball.posX + self.ball.width) == self.playerRight.posX:
@@ -52,6 +63,7 @@ class Board:
         return -1
     
     def checkCollisionLeftPlayerRandom(self):#if -1, then no collision
+        ''' Metodo que se encarga de determinar si hubo colision entre la pelota y el jugador izquierdo'''
         #caso donde pega en el coco de arriba
         #caso donde pega en la parte de enfrente
         if int(self.ball.posX) == int(self.playerLeft.posX + self.playerLeft.width):
@@ -65,45 +77,9 @@ class Board:
         #caso donde pega en el coco de abajo
         return -1
     
-    def getNormalVector(self, player: Player, ball: Ball):
-        if (player.type == "RIGHT"):
-            #center is <posx + width/2, posy + height/2>
-            #normal vector is <posx - ball.width/2, posy + height/2>
-            return (player.posX - ball.width/2, player.posY + player.height/2)
-        if (player.type == "LEFT"):
-            #center is <posx + width/2, posy + height/2>
-            #normal vector is <posx + width/2 + ball.width/2, posy + height/2>
-            return (player.posX + player.width/2 + ball.width/2, player.posY + player.height/2)
-            
-    def getBallVector(self, player: Player, ball: Ball):
-        if (player.type == "RIGHT"):
-            return (player.posX - ball.width/2, (ball.posY + ball.width) - (player.posY + player.height/2))
-        if (player.type == "LEFT"):
-            return (player.posX + player.width/2 + ball.width/2, (ball.posY + ball.width) - (player.posY + player.height/2))
-
-    def dotProduct(self, nVec, bVec):
-        return nVec[0]*bVec[0] + nVec[1]*bVec[1]
-
-    def mag(self, vec):
-        return math.sqrt(vec[0]*vec[0] + vec[1]*vec[1])
-        
-    def checkCollisionRightPlayer(self):
-        if int(self.ball.posX + self.ball.width) == self.playerRight.posX:
-            if (int(self.ball.posY + self.ball.height) >= self.playerRight.posY) and (int(self.ball.posY) <= int(self.playerRight.posY + self.playerRight.height)): #hay colision
-                nVec = self.getNormalVector(self.playerRight, self.ball)
-                bVec = self.getBallVector(self.playerRight, self.ball)
-                return math.acos(self.dotProduct(nVec, bVec)/(self.mag(nVec)*self.mag(bVec)))
-        return -1
-
-    def checkCollisionLeftPlayer(self):
-        if int(self.ball.posX) == int(self.playerLeft.posX + self.playerLeft.width):
-            if (int(self.ball.posY + self.ball.height) >= self.playerLeft.posY) and (int(self.ball.posY) <= int(self.playerLeft.posY + self.playerLeft.height)): #hay colision
-                nVec = self.getNormalVector(self.playerLeft, self.ball)
-                bVec = self.getBallVector(self.playerLeft, self.ball)
-                return math.acos(self.dotProduct(nVec, bVec)/(self.mag(nVec)*self.mag(bVec)))
-        return -1
     
     def collidesWithUpperWall(self):
+        '''Metodo que se encarga de determinar si hubo colision entre la pelota y la pared superior'''
         if (self.ball.posY <= 0):
             #return randomly anything between pi and 2pi    
             rnd_num = (rnd.random() + 1) * math.pi 
@@ -111,6 +87,7 @@ class Board:
         return -1
         
     def collidesWithLowerWall(self):
+        '''Metodo que se encarga de determinar si hubo colision entre la pelota y la pared inferior'''
         if (self.ball.posY + self.ball.height >= self.drawer.screen_height):
             #return randomly anything between 0 and pi
             rnd_num = rnd.random() * math.pi
@@ -132,9 +109,12 @@ class Board:
     
     def updateItems(self):
         '''Dibuja/actualiza los objetos dentro la pantalla'''
+        if (self.checkforWinner() != "None"):
+            return self.checkforWinner()
         if (self.checkForGoals()):
             self.ball.move(self.getRandomValueBetween0PIAnd2PI())
         else:
             self.ball.move(self.getBallCollisionDirection())
         for item in self.items:
             item.draw()
+        return "None"

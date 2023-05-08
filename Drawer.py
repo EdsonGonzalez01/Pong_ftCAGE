@@ -20,4 +20,4 @@ class Drawer:
         pygame.display.set_caption("Pong")
         # Set up the clock
         self.clock = pygame.time.Clock()
-        self.clock.tick(60)
+        self.clock.tick(30)
