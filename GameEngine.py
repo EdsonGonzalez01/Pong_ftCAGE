@@ -11,17 +11,16 @@ class GameEngine:
     '''Clase que se encarga de manejar y llevar a cabo todas las operaciones del juego'''
     def __init__(self) -> None:
         '''Constructor que inicializa la clase GameEngine'''
-        self.drawer = Drawer()
-        self.left = Player("LEFT", self.drawer, .51, 15,60)
-        self.right = Player("RIGHT", self.drawer, .51,15,60)
-        self.ball = Ball(self.drawer, .2)
+        self.drawer = Drawer()  
+        self.left = Player("LEFT", self.drawer, 1, 15,60)
+        self.right = Player("RIGHT", self.drawer, 1,15,60)
+        self.ball = Ball(self.drawer, .5)
         self.board = Board(self.right, self.left, self.ball)
 
 
     def runGame(self):
         '''Metodo que corre el funcionamiento principal del juego'''
         game_running = True
-        print(self.drawer.screen_width)
         while game_running:
             # Handle input
             keys = pygame.key.get_pressed()

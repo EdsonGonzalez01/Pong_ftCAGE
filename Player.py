@@ -23,9 +23,21 @@ class Player(GameItem):
     
     def draw(self):
         '''Metodo que se encarga de dibujar la pelota en la pantalla principal'''
+        font = pygame.font.Font('freesansbold.ttf', 32)
+        
         if self.type == "LEFT":
+            text = font.render(str(self.points), True, (0,0,255), (0,0,0))
+            textRect = text.get_rect()
+            textRect.center = (self.drawer.screen_width - 50, 50)
+            self.drawer.screen.blit(text, textRect)
             pygame.draw.rect(self.drawer.screen, (255,0,0), (self.posX, self.posY, self.width, self.height))
-
         if self.type == "RIGHT":
+            text = font.render(str(self.points), True, (0,0,255), (0,0,0))
+            textRect = text.get_rect()
+            textRect.center = (50, 50)
+            self.drawer.screen.blit(text, textRect)
             pygame.draw.rect(self.drawer.screen, (0,255,0), (self.posX, self.posY, self.width, self.height))
+            
+
+
         

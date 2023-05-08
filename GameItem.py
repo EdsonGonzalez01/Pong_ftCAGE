@@ -35,6 +35,6 @@ class GameItem(Drawable, Moveable):
         self.direction = dir
         if  self.cantMoveVertically() or self.cantMoveHorizontally():
             return
-        self.posY = self.posY - math.sin(self.direction) * self.speed
-        self.posX = self.posX + math.cos(self.direction) * self.speed
+        self.posY = (self.posY - math.sin(self.direction) * self.speed)
+        self.posX = (self.posX + math.cos(self.direction) * self.speed)
     

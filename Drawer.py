@@ -7,8 +7,8 @@ class Drawer:
     def __new__(cls) -> None:
         '''Metodo que crea la instancia unica de la pantalla en la que se dibujaran los objetos'''
         if cls._instance is None:
-            with pygame.init():
-                cls._instance = super().new_(cls)
+            pygame.init()
+            cls._instance = super().__new__(cls)
         return cls._instance
     
     def __init__(self) -> None:
