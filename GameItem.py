@@ -18,19 +18,19 @@ class GameItem(Drawable, Moveable):
         '''Metodo abstracto que dibuja al GameItem'''
         pass
 
-    def cantMoveVertically(self):
+    def cantMoveVertically(self) -> bool:
         '''Metodo que determina si un GameItem puede moverse verticalmente'''
         canMoveUp = (self.posY <= 0 and self.direction == math.pi/2)
         canMoveDown = (self.posY + self.height >= self.drawer.screen_height and self.direction == math.pi*3/2)
         return canMoveUp or canMoveDown
 
-    def cantMoveHorizontally(self):
+    def cantMoveHorizontally(self) -> bool:
         '''Metodo que determina si un GameItem puede moverse horizontalmete'''
         cantMoveLeft = (self.posX <= 0 and self.direction == math.pi) 
         cantMoveRight = (self.posX + self.width >= self.drawer.screen_width and self.direction == 0)
         return cantMoveLeft or cantMoveRight
 
-    def move(self, dir):
+    def move(self, dir) -> None:
         '''Metodo que permite a los GameItems moverse en la pantalla'''
         self.direction = dir
         if  self.cantMoveVertically() or self.cantMoveHorizontally():

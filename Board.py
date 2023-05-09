@@ -15,7 +15,7 @@ class Board:
         self.drawer = Drawer()
 
 
-    def checkforWinner(self):
+    def checkforWinner(self) -> str:
         '''Metodo que se encarga de determinar si un jugador gano'''
         if self.playerLeft.points == 5:
             return "Player Left won"
@@ -23,7 +23,7 @@ class Board:
             return "Player Left won"
         return "None"
     
-    def checkForGoals(self):
+    def checkForGoals(self) -> bool:
         '''Metodo que se encarga de determinar si un gol fue anotado'''
         if(self.ball.posX <= 0):
             self.playerLeft.points += 1
@@ -36,7 +36,7 @@ class Board:
         return False
         
 
-    def resetAfterGoal(self):
+    def resetAfterGoal(self)-> None:
         '''Metodo que se encarga de resetear la posicion de los jugadores y la pelota'''
         self.playerLeft.posX = 25
         self.playerLeft.posY = (self.drawer.screen_width / 2) - (self.drawer.screen_height / 2)
@@ -45,7 +45,7 @@ class Board:
         self.ball.posX = self.drawer.screen_width/2
         self.ball.posY = self.drawer.screen_height/2
         
-    def getRandomValueBetween0PIAnd2PI(self):
+    def getRandomValueBetween0PIAnd2PI(self)-> float:
         '''Metodo que se encarga de generar un numero aleatorio entre 0 y 2pi'''
         rnd_num = rnd.random() + rnd.random() * math.pi
         return rnd_num
@@ -94,7 +94,7 @@ class Board:
             return rnd_num
         return -1
 
-    def getBallCollisionDirection(self):
+    def getBallCollisionDirection(self) -> float:
         '''Metodo que regresa la direccion de la pelota dado que hay colision'''
         if (self.collidesWithUpperWall() != -1):
             return self.collidesWithUpperWall()
@@ -107,7 +107,7 @@ class Board:
         #no collision, keep same direction
         return self.ball.direction
     
-    def updateItems(self):
+    def updateItems(self)-> str:
         '''Dibuja/actualiza los objetos dentro la pantalla'''
         if (self.checkforWinner() != "None"):
             return self.checkforWinner()

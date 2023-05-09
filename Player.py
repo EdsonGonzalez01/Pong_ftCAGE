@@ -21,7 +21,7 @@ class Player(GameItem):
             self.posY = (self.drawer.screen_height / 2) - (self.height / 2)           
         
     
-    def draw(self):
+    def draw(self)-> None:
         '''Metodo que se encarga de dibujar la pelota en la pantalla principal'''
         font = pygame.font.Font('freesansbold.ttf', 32)
         

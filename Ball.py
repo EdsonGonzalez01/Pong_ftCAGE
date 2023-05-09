@@ -10,6 +10,6 @@ class Ball(GameItem):
         self.posX = drawer.screen_width/2
         self.posY = drawer.screen_height/2
 
-    def draw(self):
+    def draw(self) -> None:
         '''Metodo que se encarga de dibujar la pelota en la pantalla principal'''
         pygame.draw.rect(self.drawer.screen, self.color, (self.posX, self.posY, self.width, self.height))
